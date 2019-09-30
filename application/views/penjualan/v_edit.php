@@ -359,8 +359,6 @@
       $('[name=remain]').val(0);
     });
 
-
-
     $('#btnSave').on('click', function() {
       $.ajax({
         url: "<?php echo base_url() . 'c_penjualan/updateTrx/' ?>" + idTrxEdit,
