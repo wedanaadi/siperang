@@ -1,0 +1,19 @@
+table thead > tr {
+  text-align: center
+}
+
+.card-header > .card-tools {
+  top: .3rem;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  margin-top: -6px !important;
+}
+
+.tombol-enter {
+  margin-top: 32px;
+}
+
+.sembunyi {
+  display: none;
+}
