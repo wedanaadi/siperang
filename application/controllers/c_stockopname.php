@@ -46,7 +46,8 @@ class C_stockopname extends CI_Controller
         'Nama_Barang' => $this->input->post('namaBarang')[$i],
         'Quantity' => $this->input->post('stok')[$i],
         'Harga' => $this->input->post('hargaBeli')[$i],
-        'Selisih' => abs($selisih),
+        // 'Selisih' => abs($selisih),
+        'Selisih' => $selisih,
         'Input_Stok' => $this->input->post('inputStok')[$i],
         'Tanggal' => date('Y-m-d'),
         'status' => $status

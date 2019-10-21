@@ -302,6 +302,27 @@ class C_penjualan extends CI_Controller
     $html = $this->load->view('penjualan/v_cetak_trx_pilih', $data, TRUE);
     $this->create_pdf->load($html, 'Laporan Transaksi', 'A5-P');
   }
+
+  public function laporanBarang()
+  {
+    $template['title'] = 'siperang | LAPORAN BARANG TERLARIS';
+    $this->load->view('template/v_head', $template);
+    $this->load->view('template/v_topmenu');
+    $this->load->view('template/v_sidebar');
+    $this->load->view('template/js');
+    $this->load->view('penjualan/v_barang_terlaris');
+    $this->load->view('template/v_foot');
+  }
+
+  public function cetakBarangTerlaris($start, $end)
+  {
+    $data['header'] = $this->cetakHeader();
+    $data['konten'] = $this->m_penjualan->getBarangTerlaris($start, $end);
+    $data['start'] = $start;
+    $data['end'] = $end;
+    $html = $this->load->view('penjualan/v_cetak_barang_terlaris', $data, TRUE);
+    $this->create_pdf->load($html, 'Laporan Barang Terlaris', 'A4-P');
+  }
 }
 
 /* End of file C_penjualan.php */

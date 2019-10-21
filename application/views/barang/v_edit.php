@@ -9,7 +9,7 @@
 
           <div class="form-group">
             <label for="formKodeBarang">Kode Barang</label>
-            <input type="text" disabled name="KodeBarang" id="formKodeBarang" class="form-control" placeholder="Masukan kode barang" value="<?php echo $dataUbah->Kode_Barang ?>">
+            <input type="text" readonly name="KodeBarang" id="formKodeBarang" class="form-control" placeholder="Masukan kode barang" value="<?php echo $dataUbah->Kode_Barang ?>">
             <small id="KodeBarang" class="error_msg invalid-feedback"></small>
           </div>
 

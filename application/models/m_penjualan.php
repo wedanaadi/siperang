@@ -110,22 +110,43 @@ class M_penjualan extends CI_Model
     WHERE DATE_FORMAT(`t_transaksipenjualan`.`Tanggal_Transaksi`, '%Y-%m-%d') BETWEEN '$tanggalawal' AND '$tanggalakhir'")->result();
   }
 
-  public function getTotal()
+  function getTotal()
   {
     return $this->db->query("SELECT SUM(Total) AS 'total' FROM `t_transaksipenjualan` 
     WHERE CONCAT(YEAR(`Tanggal_Transaksi`),'/',MONTH(`Tanggal_Transaksi`)) = CONCAT(YEAR(NOW()),'/',MONTH(NOW()))")->row();
   }
 
-  public function dataTrxPilihJSON($id)
+  function dataTrxPilihJSON($id)
   {
     $this->db->where('Kode_Transaksi', $id);
     return $this->db->get('t_transaksipenjualan')->row();
   }
 
-  public function dataDetilTrxPilihJSON($id)
+  function dataDetilTrxPilihJSON($id)
   {
     $this->db->where('Kode_Transaksi', $id);
     return $this->db->get('t_transaksipenjualan_detil')->result();
+  }
+
+  function getBarangTerlaris($awal, $akhir)
+  {
+    $sql  = "SELECT SUM(`t_transaksipenjualan_detil`.`Quantity`) AS 'jumlah', `t_transaksipenjualan_detil`.`Nama_Barang`, `t_transaksipenjualan_detil`.`Kode_Barang`  FROM `t_transaksipenjualan`
+            INNER JOIN `t_transaksipenjualan_detil` ON `t_transaksipenjualan_detil`.`Kode_Transaksi` = `t_transaksipenjualan`.`Kode_Transaksi`
+            WHERE DATE_FORMAT(`t_transaksipenjualan`.`Tanggal_Transaksi`, '%Y-%m-%d') BETWEEN '$awal' AND '$akhir'
+            GROUP BY `t_transaksipenjualan_detil`.`Kode_Barang`
+            ORDER BY jumlah DESC";
+    return $this->db->query($sql)->result();
+  }
+
+  function getBarangTerlarischart()
+  {
+    $sql  = "SELECT SUM(`t_transaksipenjualan_detil`.`Quantity`) AS 'jumlah', `t_transaksipenjualan_detil`.`Nama_Barang`, `t_transaksipenjualan_detil`.`Kode_Barang`  FROM `t_transaksipenjualan`
+            INNER JOIN `t_transaksipenjualan_detil` ON `t_transaksipenjualan_detil`.`Kode_Transaksi` = `t_transaksipenjualan`.`Kode_Transaksi`
+            WHERE CONCAT(YEAR(`t_transaksipenjualan`.`Tanggal_Transaksi`),'/',MONTH(`t_transaksipenjualan`.`Tanggal_Transaksi`)) = CONCAT(YEAR(NOW()),'/',MONTH(NOW()))
+            GROUP BY `t_transaksipenjualan_detil`.`Kode_Barang`
+            ORDER BY jumlah DESC
+            LIMIT 5";
+    return $this->db->query($sql)->result();
   }
 }
 

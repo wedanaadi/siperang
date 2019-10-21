@@ -139,6 +139,7 @@
         method: "POST",
         dataType: "JSON",
         success: function(respon) {
+          detil.clear().draw();
           for (let index = 0; index < respon.length; index++) {
             console.log(respon[index]);
             detil.row.add([

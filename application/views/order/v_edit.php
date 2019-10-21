@@ -220,7 +220,7 @@
                   <td><?php echo $r->Kode_Barang ?></td>
                   <td><?php echo $r->Nama_Barang ?></td>
                   <td><?php echo $r->Harga_Barang ?></td>
-                  <td><?php echo $r->Quantity ?></td>
+                  <td><?php echo $r->Jumlah ?></td>
                   <td align="center">
                     <button class="btn btn-secondary btn-sm btnPilihReq" title="Pilih Barang"><i class="fas fa-check"></i></button>
                   </td>
@@ -320,6 +320,57 @@
         },
         success: function(respon) {
           $('[name=NamaSupplier]').val(respon.Nama_Supplier);
+        }
+      });
+
+
+      $.ajax({
+        url: "<?php echo base_url('c_order/getBarang') ?>",
+        method: "POST",
+        type: "POST",
+        dataType: "JSON",
+        data: {
+          id: $(this).val()
+        },
+        success: function(respon) {
+          tabelbarang.clear().draw();
+          for (let index = 0; index < respon.length; index++) {
+            var rowadd = tabelbarang.row.add([
+              respon[index].Kode_Barang,
+              respon[index].Nama_Barang,
+              respon[index].Harga_Beli,
+              respon[index].Quantity,
+              '<button class="btn btn-secondary btn-sm btnPilih" title="Pilih Barang"><i class="fas fa-check"></i></button>'
+            ]).draw();
+            tabelbarang.row(rowadd).column(4).nodes().to$().addClass('text-center');
+          }
+        }
+      });
+
+      $.ajax({
+        url: "<?php echo base_url('c_order/getReq') ?>",
+        method: "POST",
+        type: "POST",
+        dataType: "JSON",
+        data: {
+          id: $(this).val()
+        },
+        success: function(respon) {
+          tabelrequest.clear().draw();
+          for (let index = 0; index < respon.length; index++) {
+            var rowadd = tabelrequest.row.add([
+              respon[index].Kode_Barang,
+              respon[index].Nama_Barang,
+              respon[index].Harga_Barang,
+              respon[index].Jumlah,
+              '<button class="btn btn-secondary btn-sm btnPilihReq" title="Pilih Barang"><i class="fas fa-check"></i></button>',
+              respon[index].id_req,
+              respon[index].kode_req,
+            ]).draw();
+            tabelrequest.row(rowadd).column(4).nodes().to$().addClass('text-center');
+            tabelrequest.row(rowadd).column(5).nodes().to$().addClass('sembunyi');
+            tabelrequest.row(rowadd).column(6).nodes().to$().addClass('sembunyi');
+          }
         }
       });
     });

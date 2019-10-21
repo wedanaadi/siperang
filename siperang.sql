@@ -12,6 +12,24 @@ MySQL - 10.1.34-MariaDB : Database - siperang
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*Table structure for table `t_barang_supplier` */
+
+DROP TABLE IF EXISTS `t_barang_supplier`;
+
+CREATE TABLE `t_barang_supplier` (
+  `Id_PK` varchar(100) NOT NULL,
+  `Id_Supplier` varchar(100) DEFAULT NULL,
+  `Kode_Barang` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`Id_PK`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `t_barang_supplier` */
+
+insert  into `t_barang_supplier`(`Id_PK`,`Id_Supplier`,`Kode_Barang`) values 
+('NUBS71570619736','SUP1568150805','FD1'),
+('O208S1570619482','SUP1570605710','HD15'),
+('R46D11570619482','SUP1570605710','FD1');
+
 /*Table structure for table `t_barangmasuk` */
 
 DROP TABLE IF EXISTS `t_barangmasuk`;
@@ -69,7 +87,8 @@ CREATE TABLE `t_order` (
 
 insert  into `t_order`(`Kode_Order`,`Supplier`,`Total`,`Tanggal_Order`,`isStatus`) values 
 ('OR156813852400001','SUP1565351612',130000,'2019-09-11',1),
-('OR156821147000002','SUP1568150805',600000,'2019-09-11',1);
+('OR156821147000002','SUP1568150805',600000,'2019-09-11',1),
+('OR157061962100003','SUP1570605710',900000,'2019-10-09',0);
 
 /*Table structure for table `t_order_detil` */
 
@@ -92,7 +111,8 @@ CREATE TABLE `t_order_detil` (
 
 insert  into `t_order_detil`(`id`,`Kode_Order`,`Kode_Barang`,`Nama_Barang`,`Harga_Barang`,`Quantity`,`Subtotal`,`id_detil_req`,`kode_req`) values 
 ('1568138543','OR156813852400001','FD1','Flashdisk',130000,1,130000,'1567831871','RQ156610469400001'),
-('1568211502','OR156821147000002','FD1','Flashdisk',120000,5,600000,'1568211410','RQ156821126400002');
+('1568211502','OR156821147000002','FD1','Flashdisk',120000,5,600000,'1568211410','RQ156821126400002'),
+('cjhTM1570619640','OR157061962100003','HD15','Harddisk',900000,1,900000,'','');
 
 /*Table structure for table `t_requestbarang` */
 
@@ -132,8 +152,8 @@ CREATE TABLE `t_requestbarang_detil` (
 /*Data for the table `t_requestbarang_detil` */
 
 insert  into `t_requestbarang_detil`(`id`,`Kode_Request`,`Kode_Barang`,`Nama_Barang`,`Harga_Barang`,`Quantity`,`Subtotal`,`isStatus`) values 
-('1567831871','RQ156610469400001','FD1','Flashdisk',130000,1,130000,1),
-('1568211410','RQ156821126400002','FD1','Flashdisk',120000,5,600000,1);
+('1567831871','RQ156610469400001','HD15','Flashdisk',130000,1,130000,0),
+('1568211410','RQ156821126400002','HD15','Flashdisk',120000,5,600000,0);
 
 /*Table structure for table `t_returnbarang` */
 
@@ -306,7 +326,8 @@ CREATE TABLE `tbl_supplier` (
 
 insert  into `tbl_supplier`(`Kode_Supplier`,`Nama_Supplier`,`Alamat_Supplier`,`No_Tlp`,`isAktif`) values 
 ('SUP1565351612','Supplier Test','fdkdbk','57488',NULL),
-('SUP1568150805','Supplier Test Update','Gianyar','0897653335635',NULL);
+('SUP1568150805','Supplier Test Update','Gianyar','0897653335635',NULL),
+('SUP1570605710','PT Adi Sanjaya','Denpasar','0897653335635',NULL);
 
 /*Table structure for table `tbl_user` */
 

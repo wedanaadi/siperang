@@ -29,12 +29,29 @@ class C_dashboard extends CI_Controller
     $data['chart4'] = $this->grafik_return();
     $data['chart5'] = $this->grafik_barangmasuk();
     $data['chart6'] = $this->grafik_penjualan_pembelian();
+    $data['chart7'] = $this->barangTerlaris();
     $this->load->view('template/v_head', $template);
     $this->load->view('template/v_topmenu');
     $this->load->view('template/v_sidebar');
     $this->load->view('template/js');
     $this->load->view('v_utama', $data);
     $this->load->view('template/v_foot');
+  }
+
+  public function barangTerlaris()
+  {
+    $dataChart = [];
+    $datas = $this->m_penjualan->getBarangTerlarischart();
+    foreach ($datas as $d) {
+      $angka = [];
+      array_push($angka, floatval($d->jumlah));
+      $dataChart[] = [
+        'name' => $d->Nama_Barang,
+        'data' => $angka
+      ];
+    }
+    $data['chartData'] = json_encode($dataChart);
+    return $data;
   }
 
   public function stokMin()

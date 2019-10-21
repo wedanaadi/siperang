@@ -216,6 +216,21 @@
           </div>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Grafik 5 Barang Terlaris Bulan ini</h3>
+            </div>
+            <div class="card-body">
+              <div class="chart">
+                <div id="chart_bt" style="height: 200px; margin: 0 auto"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <?php endif; ?>
   </div>
 </div>
@@ -506,6 +521,48 @@
         emptyTable: "No data available in table"
       }
     });
+
+    var dataBarangTerlaris = JSON.parse('<?php echo isset($chart7['chartData']) ? $chart7['chartData'] : "{}" ?>');
+    console.log(dataBarangTerlaris);
+
+    Highcharts.chart('chart_bt', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: null
+      },
+      // subtitle: {
+      //     text: 'Source: WorldClimate.com'
+      // },
+      xAxis: {
+        categories: [' '],
+        title: {
+          text: null
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Unit'
+        }
+      },
+      tooltip: {
+        useHTML: true,
+        formatter: function() {
+          return '<h4><span class="label label-success">' + this.series.name + '</span></h4><br>' +
+            this.y + ' Unit';
+        }
+      },
+      plotOptions: {
+        column: {
+          pointPadding: 0.4,
+          borderWidth: 0
+        }
+      },
+      series: dataBarangTerlaris,
+    });
+
 
   });
 </script>

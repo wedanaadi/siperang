@@ -141,6 +141,18 @@ class C_order extends CI_Controller
     echo json_encode($this->m_supplier->cariSupplier($id));
   }
 
+  public function getBarang()
+  {
+    $id = $this->input->post('id');
+    echo json_encode($this->m_supplier->getBarangSupplier($id));
+  }
+
+  public function getReq()
+  {
+    $id = $this->input->post('id');
+    echo json_encode($this->m_supplier->getReq($id));
+  }
+
   public function detil($id)
   {
     $data = $this->m_order->detil($id);

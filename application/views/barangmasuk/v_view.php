@@ -52,7 +52,7 @@
           <div class="card-header">
             <h3 class="card-title">Barang Masuk</h3>
             <div class="card-tools">
-              <a href="<?php echo base_url() . 'c_barang/tambahBarang' ?>" class="btn btn-success"><i class="fas fa-plus"></i> Tambah</a>
+              <!-- <a href="<?php echo base_url() . 'c_barang/tambahBarang' ?>" class="btn btn-success"><i class="fas fa-plus"></i> Tambah</a> -->
             </div>
           </div>
           <div class="card-body">
@@ -202,6 +202,7 @@
         method: "POST",
         dataType: "JSON",
         success: function(respon) {
+          detil.clear().draw();
           for (let index = 0; index < respon.length; index++) {
             console.log(respon[index]);
             detil.row.add([

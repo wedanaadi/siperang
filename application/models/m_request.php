@@ -70,9 +70,9 @@ class M_request extends CI_Model
 
   function getReq()
   {
-    $sql  =  "SELECT *, GROUP_CONCAT(DISTINCT id SEPARATOR ',') AS 'id_req', GROUP_CONCAT(DISTINCT `Kode_Request` SEPARATOR ',') AS 'kode_req' 
-              FROM `t_requestbarang_detil` WHERE `isStatus` = 0
-              GROUP BY `Kode_Barang`,`isStatus`";
+    $sql  =  "SELECT *, GROUP_CONCAT(DISTINCT id SEPARATOR ',') AS 'id_req', GROUP_CONCAT(DISTINCT `Kode_Request` SEPARATOR ',') AS 'kode_req', SUM(`Quantity`) AS 'Jumlah' 
+    FROM `t_requestbarang_detil` WHERE `isStatus` = 0
+    GROUP BY `Kode_Barang`,`isStatus`";
     return $this->db->query($sql)->result();
   }
 

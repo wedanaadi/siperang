@@ -4,7 +4,9 @@
       <div class="card-header">
         <h3 class="card-title">Daftar Barang</h3>
         <div class="card-tools">
-          <a href="<?php echo base_url() . 'c_barang/tambahBarang' ?>" class="btn btn-success"><i class="fas fa-plus"></i> Tambah</a>
+          <?php if ($this->session->userdata('bagian') == '1') : ?>
+            <a href="<?php echo base_url() . 'c_barang/tambahBarang' ?>" class="btn btn-success"><i class="fas fa-plus"></i> Tambah</a>
+          <?php endif; ?>
         </div>
       </div>
       <div class="card-body">
