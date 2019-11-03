@@ -33,7 +33,7 @@ class M_barang extends CI_Model
 
   function getTotal()
   {
-    return $this->db->query("SELECT COUNT('Kode_Barang') as 'total' FROM tbl_databarang")->row();
+    return $this->db->query("SELECT COUNT('Kode_Barang') as 'total' FROM tbl_databarang WHERE isAktif = '1'")->row();
   }
 
   function getBarangMin($count = false)

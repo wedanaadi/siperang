@@ -13,7 +13,7 @@ class M_stockopname extends CI_Model
 
   function dataStockOpname($tgl)
   {
-    return $this->db->query("SELECT *, (`Selisih` * Harga) AS 'Subtotal' FROM `t_stockopname` WHERE DATE_FORMAT(`Tanggal`,'%Y-%m-%d') = '$tgl'")->result();
+    return $this->db->query("SELECT *, (`Selisih` * Harga) AS 'Subtotal' FROM `t_stockopname` WHERE DATE_FORMAT(`Tanggal`,'%Y-%m-%d') = '$tgl' ORDER BY Kode_Barang")->result();
   }
 }
 

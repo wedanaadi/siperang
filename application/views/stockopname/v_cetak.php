@@ -28,6 +28,7 @@
 <table id="TabelKonten" border="1" style="border-collapse: collapse; border-color: #000; margin-bottom : 130px;" width="100%">
   <thead>
     <tr>
+      <th>No</th>
       <th>Kode Barang</th>
       <th>Nama barang</th>
       <th style="width: 15%">Harga</th>
@@ -38,14 +39,15 @@
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($konten as $trx) : ?>
+    <?php foreach ($konten as $key => $trx) : ?>
       <tr>
-        <td style="width: 20%"><?php echo $trx->Kode_Barang ?></td>
-        <td style="width: 15%"><?php echo $trx->Nama_Barang ?></td>
+        <td style="width: 5%"><?php echo $key + 1 ?></td>
+        <td style="width: 15%"><?php echo $trx->Kode_Barang ?></td>
+        <td style="width: 20%"><?php echo $trx->Nama_Barang ?></td>
         <td><?php echo  'Rp. ' . number_format($trx->Harga, 0, '.', '.') ?></td>
-        <td style="width: 15%"><?php echo $trx->Quantity ?></td>
-        <td style="width: 15%"><?php echo $trx->Input_Stok ?></td>
-        <td style="width: 15%"><?php echo $trx->Selisih ?></td>
+        <td style="width: 9%"><?php echo $trx->Quantity ?></td>
+        <td style="width: 9%"><?php echo $trx->Input_Stok ?></td>
+        <td style="width: 9%"><?php echo $trx->Selisih ?></td>
         <td><?php echo  'Rp. ' . number_format($trx->Subtotal, 0, '.', '.') ?></td>
       </tr>
     <?php endforeach; ?>

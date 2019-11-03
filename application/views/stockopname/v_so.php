@@ -43,7 +43,17 @@
 
 <script>
   $(function() {
-    $('#t_so').DataTable();
+    $('#t_so').DataTable({
+      // searching: false,
+      paging: false,
+      "columnDefs": [{
+        "searchable": false,
+        "targets": [2, 3]
+      }, {
+        "searchable": true,
+        "targets": [0, 1]
+      }, ]
+    });
 
     $(document).on('click', '.save', function(e) {
       let inputStok = $("input[name='inputStok[]']").map(function() {
