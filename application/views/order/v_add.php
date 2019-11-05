@@ -241,7 +241,16 @@
     $('[name=KodeSupplier]').select2();
 
     $(document).on('click', '#btnReq', function() {
-      $('#modalReq').modal('show');
+      if ($('[name=KodeSupplier]').val() == null) {
+        Swal.fire({
+          title: '',
+          text: "Pilih Supplier terlebih dahulu!",
+          type: 'error',
+          closeOnConfirm: true,
+        });
+      } else {
+        $('#modalReq').modal('show');
+      }
     });
 
     var tabel = $('#t_temp').DataTable({
@@ -281,7 +290,16 @@
     });
 
     $(document).on('click', '[name=KodeBarang]', function() {
-      $('#modalBarang').modal('show');
+      if ($('[name=KodeSupplier]').val() == null) {
+        Swal.fire({
+          title: '',
+          text: "Pilih Supplier terlebih dahulu!",
+          type: 'error',
+          closeOnConfirm: true,
+        });
+      } else {
+        $('#modalBarang').modal('show');
+      }
     });
 
     $('[name=KodeSupplier]').on('select2:select', function(e) {
