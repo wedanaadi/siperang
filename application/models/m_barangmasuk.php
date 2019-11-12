@@ -21,6 +21,14 @@ class M_barangmasuk extends CI_Model
     return $this->db->get()->result();
   }
 
+  function dataBarangMasukForReturn()
+  {
+    $this->db->from('t_barangmasuk');
+    $this->db->join('tbl_supplier', 'tbl_supplier.Kode_Supplier = t_barangmasuk.Supplier');
+    $this->db->select('t_barangmasuk.*, tbl_supplier.Nama_Supplier');
+    return $this->db->get()->result();
+  }
+
   function kode_otomatis()
   {
     $q = $this->db->query("SELECT MAX(RIGHT(Kode_BarangMasuk,5)) AS kd_max FROM t_barangmasuk");
@@ -58,6 +66,14 @@ class M_barangmasuk extends CI_Model
     return $this->db->get('t_barangmasuk')->row();
   }
 
+  function cariBarangMasuk2($id)
+  {
+    $this->db->where('Kode_BarangMasuk', $id);
+    $this->db->join('tbl_supplier', 'tbl_supplier.Kode_Supplier = t_barangmasuk.Supplier');
+    $this->db->select('t_barangmasuk.*,tbl_supplier.Nama_Supplier');
+    return $this->db->get('t_barangmasuk')->row();
+  }
+
   function cariDetil($id)
   {
     $this->db->where('Kode_BarangMasuk', $id);
@@ -81,6 +97,10 @@ class M_barangmasuk extends CI_Model
   public function getTotal()
   {
     return $this->db->query("SELECT COUNT('Kode_BarangMasuk') as 'total' FROM t_barangmasuk WHERE CONCAT(YEAR(`Tanggal`),'/',MONTH(`Tanggal`)) = CONCAT(YEAR(NOW()),'/',MONTH(NOW())) ")->row();
+  }
+  public function getTotalChart()
+  {
+    return $this->db->query("SELECT Tanggal,COUNT('Kode_BarangMasuk') as 'total', DAY(Tanggal) as 'date' FROM t_barangmasuk WHERE CONCAT(YEAR(`Tanggal`),'/',MONTH(`Tanggal`)) = CONCAT(YEAR(NOW()),'/',MONTH(NOW())) GROUP BY Tanggal")->result();
   }
 
   public function getTotalHarga()

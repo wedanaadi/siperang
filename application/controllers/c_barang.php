@@ -25,11 +25,12 @@ class C_barang extends CI_Controller
   public function tambahBarang()
   {
     $template['title'] = 'siperang | TAMBAH BARANG';
+    $data['kode'] = $this->m_barang->kode_otomatis();
     $this->load->view('template/v_head', $template);
     $this->load->view('template/v_topmenu');
     $this->load->view('template/v_sidebar');
     $this->load->view('template/js');
-    $this->load->view('barang/v_add');
+    $this->load->view('barang/v_add', $data);
     $this->load->view('template/v_foot');
   }
 

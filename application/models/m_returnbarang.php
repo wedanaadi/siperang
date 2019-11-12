@@ -32,6 +32,12 @@ class M_returnbarang extends CI_Model
     return $kodejadi;
   }
 
+  function cariDetilBarangSelect($idBM, $idBar)
+  {
+    $this->db->where(['Kode_BarangMasuk' => $idBM, 'Kode_Barang' => $idBar]);
+    return $this->db->get('t_barangmasuk_detil')->row();
+  }
+
   function prosesInsert($data, $detil, $stok)
   {
     $this->db->trans_start();
@@ -70,6 +76,10 @@ class M_returnbarang extends CI_Model
   public function getTotal()
   {
     return $this->db->query("SELECT COUNT('Kode_Return') as 'total' FROM t_returnbarang WHERE CONCAT(YEAR(`Tanggal`),'/',MONTH(`Tanggal`)) = CONCAT(YEAR(NOW()),'/',MONTH(NOW())) ")->row();
+  }
+  public function getTotalChart()
+  {
+    return $this->db->query("SELECT Tanggal, COUNT('Kode_Return') as 'total', DAY(Tanggal) as 'date' FROM t_returnbarang WHERE CONCAT(YEAR(`Tanggal`),'/',MONTH(`Tanggal`)) = CONCAT(YEAR(NOW()),'/',MONTH(NOW())) GROUP BY Tanggal")->result();
   }
 }
 

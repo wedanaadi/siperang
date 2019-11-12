@@ -7,9 +7,9 @@
       <form action="javascript:void(0)" method="POST">
         <div class="card-body">
 
-          <div class="form-group">
+          <div class="form-group" hidden="hidden">
             <label for="formKodeBarang">Kode Barang</label>
-            <input type="text" name="KodeBarang" id="formKodeBarang" class="form-control" placeholder="Masukan kode barang">
+            <input type="text" name="KodeBarang" id="formKodeBarang" class="form-control" placeholder="Masukan kode barang" value="<?php echo $kode ?>">
             <small id="KodeBarang" class="error_msg invalid-feedback"></small>
           </div>
 
@@ -31,9 +31,9 @@
             <small id="HargaJual" class="error_msg invalid-feedback"></small>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" hidden="hidden">
             <label for="formQuantity">Quantity</label>
-            <input type="text" name="Quantity" id="formQuantity" class="form-control" placeholder="Masukan quantity">
+            <input type="text" name="Quantity" id="formQuantity" class="form-control" placeholder="Masukan quantity" value="0">
             <small id="Quantity" class="error_msg invalid-feedback"></small>
           </div>
 

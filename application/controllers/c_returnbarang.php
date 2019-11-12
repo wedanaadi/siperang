@@ -7,7 +7,7 @@ class C_returnbarang extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    $this->load->model(['m_barang', 'm_returnbarang', 'm_supplier']);
+    $this->load->model(['m_barang', 'm_returnbarang', 'm_supplier', 'm_barangmasuk']);
     is_login();
   }
 
@@ -16,6 +16,7 @@ class C_returnbarang extends CI_Controller
     $template['title'] = 'siperang | RETURN BARANG';
     $data['listSupplier'] = $this->m_supplier->dataSupplier();
     $data['listReturn'] = $this->m_returnbarang->dataReturn(date('Y-m-d'));
+    $data['listBarangMasuk'] = $this->m_barangmasuk->dataBarangMasukForReturn();
     $this->load->view('template/v_head', $template);
     $this->load->view('template/v_topmenu');
     $this->load->view('template/v_sidebar');
@@ -24,18 +25,25 @@ class C_returnbarang extends CI_Controller
     $this->load->view('template/v_foot');
   }
 
-  public function tambahReturn()
+  public function tambahReturn($id)
   {
     $template['title'] = 'siperang | TAMBAH RETURN BARANG';
     $data['listSupplier'] = $this->m_supplier->dataSupplier();
-    $data['listBarang'] = $this->m_barang->dataBarang();
+    $data['listBarang'] = $this->m_barangmasuk->cariDetil($id);
     $data['KodeReturn'] = $this->m_returnbarang->kode_otomatis();
+    $data['BarangMasuk'] = $this->m_barangmasuk->cariBarangMasuk2($id);
+    $data['idBM'] = $id;
     $this->load->view('template/v_head', $template);
     $this->load->view('template/v_topmenu');
     $this->load->view('template/v_sidebar');
     $this->load->view('template/js');
     $this->load->view('return/v_add', $data);
     $this->load->view('template/v_foot');
+  }
+
+  public function getDetilBarangMasuk($idBarang)
+  {
+    echo json_encode($this->m_returnbarang->cariDetilBarangSelect($this->input->post('idBM'), $idBarang));
   }
 
   public function addBarang()
@@ -99,6 +107,7 @@ class C_returnbarang extends CI_Controller
         'Supplier' => $this->input->post('KodeSupplier'),
         'Tanggal' => date('Y-m-d'),
         'Total' => $this->input->post('Total'),
+        'Kode_Barang_Masuk' => $this->input->post('idBM'),
       ];
 
       $this->m_returnbarang->prosesInsert($data, $detil, $updateStok);
@@ -119,8 +128,9 @@ class C_returnbarang extends CI_Controller
     $data['dataSupplier'] = $this->m_supplier->cariSupplier($data['return']->Supplier);
     $data['detil'] = json_encode($this->m_returnbarang->cariDetil($id));
     $data['listSupplier'] = $this->m_supplier->dataSupplier();
-    $data['listBarang'] = $this->m_barang->dataBarang();
     $data['KodeReturn'] = $this->m_returnbarang->kode_otomatis();
+    $data['listBarang'] = $this->m_barangmasuk->cariDetil($data['return']->Kode_Barang_Masuk);
+    $data['BarangMasuk'] = $this->m_barangmasuk->cariBarangMasuk2($data['return']->Kode_Barang_Masuk);
     $this->load->view('template/v_head', $template);
     $this->load->view('template/v_topmenu');
     $this->load->view('template/v_sidebar');
@@ -175,6 +185,7 @@ class C_returnbarang extends CI_Controller
         'Supplier' => $this->input->post('KodeSupplier'),
         'Tanggal' => date('Y-m-d'),
         'Total' => $this->input->post('Total'),
+        'Kode_Barang_Masuk' => $this->input->post('idBM'),
       ];
 
       $this->m_returnbarang->prosesUpdate($data, $detil, $updateStok, $id);

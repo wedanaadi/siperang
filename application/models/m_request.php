@@ -80,6 +80,11 @@ class M_request extends CI_Model
   {
     return $this->db->query("SELECT COUNT('Kode_Request') as 'total' FROM t_requestbarang WHERE CONCAT(YEAR(`Tanggal_Request`),'/',MONTH(`Tanggal_Request`)) = CONCAT(YEAR(NOW()),'/',MONTH(NOW())) ")->row();
   }
+
+  public function getTotalChart()
+  {
+    return $this->db->query("SELECT Tanggal_Request ,COUNT('Kode_Request') as 'total', DAY(Tanggal_Request) AS 'date' FROM t_requestbarang WHERE CONCAT(YEAR(`Tanggal_Request`),'/',MONTH(`Tanggal_Request`)) = CONCAT(YEAR(NOW()),'/',MONTH(NOW())) GROUP BY Tanggal_Request")->result();
+  }
 }
 
 /* End of file M_request.php */

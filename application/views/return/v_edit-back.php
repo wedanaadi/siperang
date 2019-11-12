@@ -2,7 +2,7 @@
   <div class="content-fluid">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Tambah Return</h3>
+        <h3 class="card-title">Ubah Return</h3>
         <div class="card-tools">
           <a href="<?php echo base_url() . 'c_return/index' ?>" class="btn btn-secondary"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>
         </div>
@@ -12,14 +12,13 @@
           <div class="col-md-6">
             <form id="form1" class="form-horizontal" id="form">
               <div class="card-body">
-                <input type="hidden" name="id" value="<?php echo $idBM ?>">
                 <div class="form-group row">
                   <label for="formKodeSupplier" class="col-sm-4 control-label">Kode Supplier</label>
                   <div class="col-sm-8">
-                    <select disabled name="KodeSupplier" id="formKodeSupplier" class="form-control" style="width: 100%;">
+                    <select name="KodeSupplier" id="formKodeSupplier" class="form-control" style="width: 100%;">
                       <option value="" selected disabled>-- PILIH KODE SUPPLIER --</option>
                       <?php foreach ($listSupplier as $supplier) : ?>
-                        <?php if ($BarangMasuk->Supplier == $supplier->Kode_Supplier) : ?>
+                        <?php if ($return->Supplier == $supplier->Kode_Supplier) : ?>
                           <option selected value="<?php echo $supplier->Kode_Supplier ?>"><?php echo $supplier->Kode_Supplier ?> || <?php echo $supplier->Nama_Supplier ?></option>
                         <?php else : ?>
                           <option value="<?php echo $supplier->Kode_Supplier ?>"><?php echo $supplier->Kode_Supplier ?> || <?php echo $supplier->Nama_Supplier ?></option>
@@ -32,7 +31,7 @@
                 <div class="form-group row">
                   <label for="formNamaSupplier" class="col-sm-4 control-label">Nama Supplier</label>
                   <div class="col-sm-8">
-                    <input type="text" name="NamaSupplier" class="form-control" id="formNamaSupplier" readonly="readonly" placeholder="Nama Supplier" value="<?php echo $BarangMasuk->Nama_Supplier ?>">
+                    <input type="text" name="NamaSupplier" class="form-control" id="formNamaSupplier" readonly="readonly" placeholder="Nama Supplier" value="<?php echo $dataSupplier->Nama_Supplier ?>">
                     <small id="NamaSupplier" class="error_msg invalid-feedback"></small>
                   </div>
                 </div>
@@ -46,7 +45,7 @@
                 <div class="form-group row">
                   <label for="formKode" class="col-sm-4 control-label">Kode Return</label>
                   <div class="col-sm-8">
-                    <input type="text" name="KodeReturn" class="form-control" id="formKode" readonly="readonly" value="<?php echo $KodeReturn ?>">
+                    <input type="text" name="KodeReturn" class="form-control" id="formKode" readonly="readonly" value="<?php echo $return->Kode_Return ?>">
                   </div>
                 </div>
                 <div class="form-group row">
@@ -109,7 +108,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">List Barang</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Penulasan Transaksi</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -158,6 +157,7 @@
 <script>
   $(function() {
 
+    let idReturn = "<?php echo $return->Kode_Return ?>";
     $('[name=KodeSupplier]').select2();
     let total;
     var tabel = $('#t_temp').DataTable({
@@ -183,6 +183,19 @@
       '<a href="javascript:void(0)" class="btn btn-danger btn-sm remove" title="remove item"><i class="fa fa-trash"></i></a>' +
       '</center>';
 
+    var dataDetil = JSON.parse('<?php echo isset($detil) ? $detil : "{}" ?>');
+
+    for (let index = 0; index < dataDetil.length; index++) {
+      tabel.row.add([
+        dataDetil[index].Kode_Barang,
+        dataDetil[index].Nama_Barang,
+        dataDetil[index].Harga_Barang,
+        dataDetil[index].Quantity,
+        parseFloat(dataDetil[index].Subtotal),
+        btnaction
+      ]).draw();
+    }
+
     $('[name=KodeBarang]').select2();
 
     $('#btnAdd').on('click', function() {
@@ -191,20 +204,14 @@
       $('#modalAdd').modal('show');
     });
 
-    var stoklama = 0;
     $('[name=KodeBarang]').on('select2:select', function(e) {
       $.ajax({
-        url: "<?php echo base_url() . 'c_returnbarang/getDetilBarangMasuk/' ?>" + $(this).val(),
+        url: "<?php echo base_url() . 'c_barang/getDetil/' ?>" + $(this).val(),
         method: "POST",
         dataType: "JSON",
-        data: {
-          idBM: $('[name=id]').val()
-        },
         success: function(respon) {
-          stoklama = respon.Quantity;
           $('[name=NamaBarang]').val(respon.Nama_Barang);
-          $('[name=HargaBeli]').val(respon.Harga_Barang);
-          $('[name=Quantity]').val(respon.Quantity);
+          $('[name=HargaBeli]').val(respon.Harga_Beli);
         }
       })
     });
@@ -229,47 +236,32 @@
             });
           }
           if (respon.success) {
-            if (parseFloat(stoklama) - parseFloat($('[name=Quantity]').val()) < 0) {
-              Swal.fire({
-                title: '',
-                text: "Melebihi jumlah dari barang yang diterima!",
-                type: 'error',
-                closeOnConfirm: true,
-              });
-            } else {
-              $('#modalAdd').modal('hide');
-              let value = $('[name=KodeBarang]').val();
-              let aksi = false;
-              $('#t_temp tbody tr').each(function(index) {
-                $row = $(this);
-                var id = $row.find("td:eq(0)").text();
-                if (id.indexOf(value) === 0) {
-                  row_id = tabel.row(this);
-                  aksi = true;
-                }
-              });
-              if (aksi == true) {
-                Swal.fire({
-                  title: '',
-                  text: "Barang sudah ditambahkan!",
-                  type: 'error',
-                  closeOnConfirm: true,
-                });
-                // let datatb = row_id.data();
-                // newqQty = parseInt(datatb[3]) + parseInt($('[name=Quantity]').val());
-                // newSub = parseFloat($('[name=HargaBeli]').val()) * parseFloat(newqQty);
-                // tabel.cell(row_id, 3).data(newqQty).draw();
-                // tabel.cell(row_id, 4).data(newSub).draw();
-              } else {
-                tabel.row.add([
-                  $('[name=KodeBarang]').val(),
-                  $('[name=NamaBarang]').val(),
-                  $('[name=HargaBeli]').val(),
-                  $('[name=Quantity]').val(),
-                  parseFloat($('[name=HargaBeli]').val()) * parseFloat($('[name=Quantity]').val()),
-                  btnaction
-                ]).draw();
+            $('#modalAdd').modal('hide');
+            let value = $('[name=KodeBarang]').val();
+            let aksi = false;
+            $('#t_temp tbody tr').each(function(index) {
+              $row = $(this);
+              var id = $row.find("td:eq(0)").text();
+              if (id.indexOf(value) === 0) {
+                row_id = tabel.row(this);
+                aksi = true;
               }
+            });
+            if (aksi == true) {
+              let datatb = row_id.data();
+              newqQty = parseInt(datatb[3]) + parseInt($('[name=Quantity]').val());
+              newSub = parseFloat($('[name=HargaBeli]').val()) * parseFloat(newqQty);
+              tabel.cell(row_id, 3).data(newqQty).draw();
+              tabel.cell(row_id, 4).data(newSub).draw();
+            } else {
+              tabel.row.add([
+                $('[name=KodeBarang]').val(),
+                $('[name=NamaBarang]').val(),
+                $('[name=HargaBeli]').val(),
+                $('[name=Quantity]').val(),
+                parseFloat($('[name=HargaBeli]').val()) * parseFloat($('[name=Quantity]').val()),
+                btnaction
+              ]).draw();
             }
           }
         }
@@ -295,7 +287,7 @@
 
     $('#btnSave').on('click', function() {
       $.ajax({
-        url: "<?php echo base_url() . 'c_returnbarang/insertReturn' ?>",
+        url: "<?php echo base_url() . 'c_returnbarang/updateReturn/' ?>" + idReturn,
         method: "POST",
         dataType: "JSON",
         data: {
@@ -304,7 +296,7 @@
           KodeSupplier: $('[name=KodeSupplier]').val(),
           NamaSupplier: $('[name=NamaSupplier]').val(),
           Detil: tabel.rows().count() === 0 ? null : tabel.rows().data().toArray(),
-          idBM: $('[name=id]').val()
+          old: dataDetil
         },
         success: function(respon) {
           $('.alert-danger').hide();

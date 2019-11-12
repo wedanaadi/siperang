@@ -113,6 +113,13 @@ class M_order extends CI_Model
   {
     return $this->db->query("SELECT COUNT('Kode_Order') as 'total' FROM t_order WHERE CONCAT(YEAR(`Tanggal_Order`),'/',MONTH(`Tanggal_Order`)) = CONCAT(YEAR(NOW()),'/',MONTH(NOW())) ")->row();
   }
+
+  public function getTotalChart()
+  {
+    return $this->db->query("SELECT `Tanggal_Order`, COUNT('Kode_Order') AS 'total', DAY(`Tanggal_Order`) AS 'date' FROM t_order 
+    WHERE CONCAT(YEAR(`Tanggal_Order`),'/',MONTH(`Tanggal_Order`)) = CONCAT(YEAR(NOW()),'/',MONTH(NOW()))
+    GROUP BY `Tanggal_Order`")->result();
+  }
 }
 
 /* End of file M_order.php */

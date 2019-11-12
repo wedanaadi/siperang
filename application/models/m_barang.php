@@ -47,6 +47,23 @@ class M_barang extends CI_Model
       return $this->db->get()->result();
     }
   }
+
+  function kode_otomatis()
+  {
+    $q = $this->db->query("SELECT MAX(RIGHT(Kode_Barang,5)) AS kd_max FROM tbl_databarang");
+    $kd = "";
+    if ($q->num_rows() > 0) {
+      foreach ($q->result() as $k) {
+        $tmp = ((int)$k->kd_max) + 1;
+        $kd = sprintf("%05s", $tmp);
+      }
+    } else {
+      $kd = "00001";
+    }
+    $kodemax = str_pad($kd, 5, "0", STR_PAD_LEFT);
+    $kodejadi  = $kodemax;
+    return $kodejadi;
+  }
 }
 
 /* End of file M_barang.php */

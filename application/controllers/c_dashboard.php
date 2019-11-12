@@ -30,6 +30,8 @@ class C_dashboard extends CI_Controller
     $data['chart5'] = $this->grafik_barangmasuk();
     $data['chart6'] = $this->grafik_penjualan_pembelian();
     $data['chart7'] = $this->barangTerlaris();
+    $data['tanggal1'] = date('01 M Y');
+    $data['tanggal2'] = date('d M Y');
     $this->load->view('template/v_head', $template);
     $this->load->view('template/v_topmenu');
     $this->load->view('template/v_sidebar');
@@ -88,45 +90,69 @@ class C_dashboard extends CI_Controller
 
   public function grafik_order()
   {
-    $get = $this->m_order->getTotal();
-    $dataChart[] = [
-      'name' => 'Order Barang',
-      'data' => [floatval($get->total)]
-    ];
-    $data['chartData'] = json_encode($dataChart);
+    $get = $this->m_order->getTotalChart();
+    $datas = [];
+    $jum = [];
+    $cat = [];
+    $tooltip = [];
+    foreach ($get as $row) :
+      array_push($jum, floatval($row->total));
+      array_push($tooltip, $row->Tanggal_Order);
+      array_push($cat, $row->date);
+    endforeach;
+    $datas = array_merge(['jumlah' => $jum], ['cat' => $cat], ['tool' => $tooltip]);
+    $data['chartData'] = json_encode($datas);
     return $data;
   }
 
   public function grafik_request()
   {
-    $get = $this->m_request->getTotal();
-    $dataChart[] = [
-      'name' => 'Request Barang',
-      'data' => [floatval($get->total)]
-    ];
-    $data['chartData'] = json_encode($dataChart);
+    $get = $this->m_request->getTotalChart();
+    $datas = [];
+    $jum = [];
+    $cat = [];
+    $tooltip = [];
+    foreach ($get as $row) :
+      array_push($jum, floatval($row->total));
+      array_push($tooltip, $row->Tanggal_Request);
+      array_push($cat, $row->date);
+    endforeach;
+    $datas = array_merge(['jumlah' => $jum], ['cat' => $cat], ['tool' => $tooltip]);
+    $data['chartData'] = json_encode($datas);
     return $data;
   }
 
   public function grafik_return()
   {
-    $get = $this->m_returnbarang->getTotal();
-    $dataChart[] = [
-      'name' => 'Return Barang',
-      'data' => [floatval($get->total)]
-    ];
-    $data['chartData'] = json_encode($dataChart);
+    $get = $this->m_returnbarang->getTotalChart();
+    $datas = [];
+    $jum = [];
+    $cat = [];
+    $tooltip = [];
+    foreach ($get as $row) :
+      array_push($jum, floatval($row->total));
+      array_push($tooltip, $row->Tanggal);
+      array_push($cat, $row->date);
+    endforeach;
+    $datas = array_merge(['jumlah' => $jum], ['cat' => $cat], ['tool' => $tooltip]);
+    $data['chartData'] = json_encode($datas);
     return $data;
   }
 
   public function grafik_barangmasuk()
   {
-    $get = $this->m_barangmasuk->getTotal();
-    $dataChart[] = [
-      'name' => 'Barang Masuk',
-      'data' => [floatval($get->total)]
-    ];
-    $data['chartData'] = json_encode($dataChart);
+    $get = $this->m_barangmasuk->getTotalChart();
+    $datas = [];
+    $jum = [];
+    $cat = [];
+    $tooltip = [];
+    foreach ($get as $row) :
+      array_push($jum, floatval($row->total));
+      array_push($tooltip, $row->Tanggal);
+      array_push($cat, $row->date);
+    endforeach;
+    $datas = array_merge(['jumlah' => $jum], ['cat' => $cat], ['tool' => $tooltip]);
+    $data['chartData'] = json_encode($datas);
     return $data;
   }
 }

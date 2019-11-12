@@ -5,9 +5,9 @@
         <div class="col-lg-6 col-12">
           <div class="small-box bg-secondary">
             <div class="inner">
-              <h3><?php echo $totalBarang->total ?></h3>
+              <h3><?php echo $totalBarang->total . ' Barang' ?></h3>
 
-              <p>Total Barang</p>
+              <p>Jumlah Barang yang tercatat dalam sistem</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -17,9 +17,9 @@
         <div class="col-lg-6 col-12">
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3><?php echo $orderBarang->total ?></h3>
+              <h3><?php echo $orderBarang->total . ' Order' ?></h3>
 
-              <p>Order Barang</p>
+              <p>Jumlah Order Barang ( Periode <?php echo $tanggal1 . ' s/d ' . $tanggal2 ?> )</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -29,22 +29,10 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6 col-xs-12">
+        <div class="col-md-12 col-xs-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Grafik Jumlah Barang</h3>
-            </div>
-            <div class="card-body">
-              <div class="chart">
-                <div id="chart_barang" style="height: 200px; margin: 0 auto"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-xs-12">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Grafik Order Barang</h3>
+              <h3 class="card-title">Grafik Order Barang Periode <?php echo $tanggal1 . ' s/d ' . $tanggal2 ?></h3>
             </div>
             <div class="card-body">
               <div class="chart">
@@ -61,9 +49,9 @@
         <div class="col-lg-4 col-12">
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3><?php echo $requestBarang->total ?></h3>
+              <h3><?php echo $requestBarang->total ?> Request Barang</h3>
 
-              <p>Request Barang</p>
+              <p>( Periode <?php echo $tanggal1 . ' s/d ' . $tanggal2 ?> )</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -73,8 +61,8 @@
         <div class="col-lg-4 col-12">
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3><?php echo $barangMasuk->total ?></h3>
-              <p>Barang Masuk</p>
+              <h3><?php echo $barangMasuk->total ?> Barang Masuk</h3>
+              <p>( Periode <?php echo $tanggal1 . ' s/d ' . $tanggal2 ?> )</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -84,8 +72,8 @@
         <div class="col-lg-4 col-12">
           <div class="small-box bg-success">
             <div class="inner">
-              <h3><?php echo $returnBarang->total ?></h3>
-              <p>Return Barang</p>
+              <h3><?php echo $returnBarang->total ?> Return Barang</h3>
+              <p>( Periode <?php echo $tanggal1 . ' s/d ' . $tanggal2 ?> )</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -135,10 +123,10 @@
       </div>
 
       <div class="row">
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-12 col-xs-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Grafik Request Barang</h3>
+              <h3 class="card-title">Grafik Request Barang Periode <?php echo $tanggal1 . ' s/d ' . $tanggal2 ?></h3>
             </div>
             <div class="card-body">
               <div class="chart">
@@ -147,10 +135,10 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-12 col-xs-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Grafik Return Barang</h3>
+              <h3 class="card-title">Grafik Return Barang Periode <?php echo $tanggal1 . ' s/d ' . $tanggal2 ?></h3>
             </div>
             <div class="card-body">
               <div class="chart">
@@ -159,10 +147,10 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-12 col-xs-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Grafik Barang Masuk</h3>
+              <h3 class="card-title">Grafik Barang Masuk Periode <?php echo $tanggal1 . ' s/d ' . $tanggal2 ?></h3>
             </div>
             <div class="card-body">
               <div class="chart">
@@ -181,7 +169,7 @@
             <div class="inner">
               <h3><?php echo 'Rp. ' . number_format($totalPenjualan->total, 0, '.', '.') ?></h3>
 
-              <p>Total Transaksi Penjualan</p>
+              <p>Total Transaksi Penjualan</p> ( <small>Periode <?php echo $tanggal1 . ' s/d ' . $tanggal2 ?></small> )
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -192,8 +180,7 @@
           <div class="small-box bg-danger">
             <div class="inner">
               <h3><?php echo 'Rp. ' . number_format($totalBarangMasuk->total, 0, '.', '.') ?></h3>
-
-              <p>Total Transaksi Pembelian</p>
+              <p>Total Transaksi Pembelian</p> ( <small>Periode <?php echo $tanggal1 . ' s/d ' . $tanggal2 ?></small> )
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -206,7 +193,7 @@
         <div class="col-md-12 col-xs-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Grafik Penjualan Pembelian</h3>
+              <h3 class="card-title">Grafik Penjualan Pembelian Periode <?php echo $tanggal1 . ' s/d ' . $tanggal2 ?></h3>
             </div>
             <div class="card-body">
               <div class="chart">
@@ -216,22 +203,21 @@
           </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-md-12 col-xs-12">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Grafik 5 Barang Terlaris Bulan ini</h3>
-            </div>
-            <div class="card-body">
-              <div class="chart">
-                <div id="chart_bt" style="height: 200px; margin: 0 auto"></div>
-              </div>
+    <?php endif; ?>
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Grafik 5 Barang Terlaris Periode <?php echo $tanggal1 . ' s/d ' . $tanggal2 ?></h3>
+          </div>
+          <div class="card-body">
+            <div class="chart">
+              <div id="chart_bt" style="height: 200px; margin: 0 auto"></div>
             </div>
           </div>
         </div>
       </div>
-    <?php endif; ?>
+    </div>
   </div>
 </div>
 
@@ -242,82 +228,51 @@
     if (akses == '1') {
       var dataBarang = JSON.parse('<?php echo isset($chart1['chartData']) ? $chart1['chartData'] : "{}" ?>');
 
-      Highcharts.chart('chart_barang', {
-        chart: {
-          type: 'column'
-        },
-        title: {
-          text: null
-        },
-        // subtitle: {
-        //     text: 'Source: WorldClimate.com'
-        // },
-        xAxis: {
-          categories: [' '],
-          title: {
-            text: null
-          }
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: 'Unit'
-          }
-        },
-        tooltip: {
-          useHTML: true,
-          formatter: function() {
-            return '<h4><span class="label label-success">' + this.series.name + '</span></h4><br>' +
-              this.y + ' Unit';
-          }
-        },
-        plotOptions: {
-          column: {
-            pointPadding: 0.4,
-            borderWidth: 0
-          }
-        },
-        series: dataBarang,
-      });
-
       var dataOrder = JSON.parse('<?php echo isset($chart2['chartData']) ? $chart2['chartData'] : "{}" ?>');
 
       Highcharts.chart('chart_order', {
-        chart: {
-          type: 'column'
-        },
         title: {
-          text: null
-        },
-        // subtitle: {
-        //     text: 'Source: WorldClimate.com'
-        // },
-        xAxis: {
-          categories: [' '],
-          title: {
-            text: null
-          }
+          text: ''
         },
         yAxis: {
-          min: 0,
           title: {
-            text: 'Unit'
+            text: 'Total Order'
+          }
+        },
+        xAxis: {
+          categories: dataOrder.cat,
+          title: {
+            text: 'Tanggal'
           }
         },
         tooltip: {
           useHTML: true,
           formatter: function() {
-            return '<h4><span class="label label-success">' + this.series.name + '</span></h4><br>' +
-              this.y + ' Unit';
+            var serieI = this.series.index;
+            var index = dataOrder.cat.indexOf(this.x);
+            var tool = dataOrder.tool[index];
+            return 'Tgl ' + tool + '<br>' +
+              'Order Barang : ' + this.y;
           }
         },
-        plotOptions: {
-          column: {
-            pointPadding: 0.4,
-            borderWidth: 0
-          }
-        },
-        series: dataOrder,
+        series: [{
+          name: 'Jumlah Order Barang (Group berdasarkan Tanggal)',
+          data: dataOrder.jumlah
+        }],
+        responsive: {
+          rules: [{
+            condition: {
+              maxWidth: 500
+            },
+            chartOptions: {
+              legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom'
+              }
+            }
+          }]
+        }
       });
     }
 
@@ -325,125 +280,165 @@
       var dataRequest = JSON.parse('<?php echo isset($chart3['chartData']) ? $chart3['chartData'] : "{}" ?>');
 
       Highcharts.chart('chart_request', {
-        chart: {
-          type: 'column'
-        },
         title: {
-          text: null
-        },
-        // subtitle: {
-        //     text: 'Source: WorldClimate.com'
-        // },
-        xAxis: {
-          categories: [' '],
-          title: {
-            text: null
-          }
+          text: ''
         },
         yAxis: {
-          min: 0,
           title: {
-            text: 'Unit'
+            text: 'Jumlah'
+          }
+        },
+        xAxis: {
+          categories: dataRequest.cat,
+          title: {
+            text: 'Tanggal'
           }
         },
         tooltip: {
           useHTML: true,
           formatter: function() {
-            return '<h4><span class="label label-success">' + this.series.name + '</span></h4><br>' +
-              this.y + ' Unit';
+            var serieI = this.series.index;
+            var index = dataRequest.cat.indexOf(this.x);
+            var tool = dataRequest.tool[index];
+            return 'Tgl ' + tool + '<br>' +
+              'Request Barang : ' + this.y;
           }
         },
-        plotOptions: {
-          column: {
-            pointPadding: 0.4,
-            borderWidth: 0
-          }
-        },
-        series: dataRequest,
+        series: [{
+          name: 'Jumlah Order Barang (Group berdasarkan Tanggal)',
+          data: dataRequest.jumlah
+        }],
+        responsive: {
+          rules: [{
+            condition: {
+              maxWidth: 500
+            },
+            chartOptions: {
+              legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom'
+              }
+            }
+          }]
+        }
       });
 
       var dataBarangMasuk = JSON.parse('<?php echo isset($chart5['chartData']) ? $chart5['chartData'] : "{}" ?>');
 
       Highcharts.chart('chart_barangmasuk', {
-        chart: {
-          type: 'column'
-        },
         title: {
-          text: null
-        },
-        // subtitle: {
-        //     text: 'Source: WorldClimate.com'
-        // },
-        xAxis: {
-          categories: [' '],
-          title: {
-            text: null
-          }
+          text: ''
         },
         yAxis: {
-          min: 0,
           title: {
-            text: 'Unit'
+            text: 'Jumlah'
+          }
+        },
+        xAxis: {
+          categories: dataBarangMasuk.cat,
+          title: {
+            text: 'Tanggal'
           }
         },
         tooltip: {
           useHTML: true,
           formatter: function() {
-            return '<h4><span class="label label-success">' + this.series.name + '</span></h4><br>' +
-              this.y + ' Unit';
+            var serieI = this.series.index;
+            var index = dataBarangMasuk.cat.indexOf(this.x);
+            var tool = dataBarangMasuk.tool[index];
+            return 'Tgl ' + tool + '<br>' +
+              'Barang Masuk : ' + this.y;
           }
         },
-        plotOptions: {
-          column: {
-            pointPadding: 0.4,
-            borderWidth: 0
-          }
-        },
-        series: dataBarangMasuk,
+        series: [{
+          name: 'Jumlah Order Barang (Group berdasarkan Tanggal)',
+          data: dataBarangMasuk.jumlah
+        }],
+        responsive: {
+          rules: [{
+            condition: {
+              maxWidth: 500
+            },
+            chartOptions: {
+              legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom'
+              }
+            }
+          }]
+        }
       });
 
       var dataReturn = JSON.parse('<?php echo isset($chart4['chartData']) ? $chart4['chartData'] : "{}" ?>');
+      console.log(dataReturn);
 
       Highcharts.chart('chart_return', {
-        chart: {
-          type: 'column'
-        },
         title: {
-          text: null
-        },
-        // subtitle: {
-        //     text: 'Source: WorldClimate.com'
-        // },
-        xAxis: {
-          categories: [' '],
-          title: {
-            text: null
-          }
+          text: ''
         },
         yAxis: {
-          min: 0,
           title: {
-            text: 'Unit'
+            text: 'Jumlah'
+          }
+        },
+        xAxis: {
+          categories: dataReturn.cat,
+          title: {
+            text: 'Tanggal'
           }
         },
         tooltip: {
           useHTML: true,
           formatter: function() {
-            return '<h4><span class="label label-success">' + this.series.name + '</span></h4><br>' +
-              this.y + ' Unit';
+            var serieI = this.series.index;
+            var index = dataReturn.cat.indexOf(this.x);
+            var tool = dataReturn.tool[index];
+            return 'Tgl ' + tool + '<br>' +
+              'Barang Masuk : ' + this.y;
           }
         },
-        plotOptions: {
-          column: {
-            pointPadding: 0.4,
-            borderWidth: 0
-          }
-        },
-        series: dataReturn,
+        series: [{
+          name: 'Jumlah Order Barang (Group berdasarkan Tanggal)',
+          data: dataReturn.jumlah
+        }],
+        responsive: {
+          rules: [{
+            condition: {
+              maxWidth: 500
+            },
+            chartOptions: {
+              legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom'
+              }
+            }
+          }]
+        }
       });
+
     }
 
     if (akses == '4') {
+
+      function IDRFormatter(angka, prefix) {
+        var number_string = angka.toString().replace(/[^,\d]/g, ''),
+          split = number_string.split(','),
+          sisa = split[0].length % 3,
+          rupiah = split[0].substr(0, sisa),
+          ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+          separator = sisa ? '.' : '';
+          rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+      }
+
       var dataPB = JSON.parse('<?php echo isset($chart6['chartData']) ? $chart6['chartData'] : "{}" ?>');
       console.log(dataPB);
 
@@ -470,7 +465,10 @@
             align: 'high'
           },
           labels: {
-            overflow: 'justify'
+            overflow: 'justify',
+            // formatter: function() {
+            //   return IDRFormatter(this.value, 'Rp. ');
+            // }
           }
         },
         tooltip: {
@@ -523,7 +521,6 @@
     });
 
     var dataBarangTerlaris = JSON.parse('<?php echo isset($chart7['chartData']) ? $chart7['chartData'] : "{}" ?>');
-    console.log(dataBarangTerlaris);
 
     Highcharts.chart('chart_bt', {
       chart: {
