@@ -168,7 +168,7 @@
   $(function() {
     $('#t_listpenjualan').DataTable({
       columnDefs: [{
-        targets: [2],
+        targets: [4],
         render: $.fn.dataTable.render.number('.', ',', '', 'Rp ')
       }],
     });
@@ -264,6 +264,7 @@
               btnAct += '<button id-return="' + respon[index].Kode_Return + '" class="btn btn-secondary btn-sm btnDetil" title="Detil Request"><i class="fas fa-eye"></i></button>';
               var rowadd = tabel.row.add([
                 respon[index].Kode_Return,
+                respon[index].Kode_Barang_Masuk,
                 respon[index].Nama_Supplier,
                 respon[index].Total,
                 respon[index].Tanggal,
@@ -293,6 +294,7 @@
               btnAct += '<button id-return="' + respon[index].Kode_Return + '" class="btn btn-secondary btn-sm btnDetil" title="Detil Request"><i class="fas fa-eye"></i></button>';
               var rowadd = tabel.row.add([
                 respon[index].Kode_Return,
+                respon[index].Kode_Barang_Masuk,
                 respon[index].Nama_Supplier,
                 respon[index].Total,
                 respon[index].Tanggal,
