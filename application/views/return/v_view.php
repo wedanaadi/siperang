@@ -56,9 +56,9 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Return Barang</h3>
-            <div class="card-tools">
+            <!-- <div class="card-tools">
               <a href="<?php echo base_url() . 'c_returnbarang/tambahReturn' ?>" class="btn btn-success"><i class="fas fa-plus"></i> Tambah</a>
-            </div>
+            </div> -->
           </div>
           <div class="card-body">
             <div class="row">
